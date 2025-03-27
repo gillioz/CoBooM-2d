@@ -15,6 +15,6 @@ This includes:
 
 - A Mathematica notebook for computations of OPE coefficients in the vacuum module using the Virasoro algebra.
 
-- A Mathematica notebook in which the momentum-space functionals are compared with existing functionals found in [arXiv:1910.12855](https://arxiv.org/abs/1910.12855).
+- A Mathematica notebook in which the momentum-space functionals are compared with existing functionals found in [arXiv:1803.10233](https://arxiv.org/abs/1803.10233) and  [arXiv:1910.12855](https://arxiv.org/abs/1910.12855).
 
 *Note:* the OPE coefficients given in Table 1 are taken from another repository of mine: [QuasiPrimaryData](https://github.com/gillioz/QuasiPrimaryData/).
