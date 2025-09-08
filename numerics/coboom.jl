@@ -81,18 +81,19 @@ function compute_S(
     include_remainder::Bool = true,
     special_normalization::Bool = false,
 )
-    result = Dict(
+    S1 = Dict(
         0 =>
             special_normalization ?
-            0.5 * gamma.(2*hϕ .+ h) ./ gamma.(1 .+ h) .* gamma_inverse.(h) .*
-            gamma_inverse.(2*hϕ + 1 .- h) :
+            0.5 * gamma.(2*hϕ .+ h) ./ gamma.(1 .+ h) .* gamma_inverse.(h) :
             0.5 * gamma.(1 .+ 2*h) ./ gamma.(1 .+ h) .* gamma_inverse.(h) .*
-            gamma_inverse.(2*hϕ + 1 .- h) .* gamma_inverse.(2*hϕ .+ h),
+            gamma_inverse.(2*hϕ .+ h),
     )
     for n = 0:(n_max-1)
-        result[n+1] =
-            (2*hϕ + n .- h) .* (2*hϕ + n - 1 .+ h) ./ (2*hϕ + n + 1 .- h) ./
-            (2*hϕ + n .+ h) .* result[n]
+        S1[n+1] = (2*hϕ + n .- h) .* (2*hϕ + n - 1 .+ h) ./ (2*hϕ + n .+ h) .* S1[n]
     end
-    return result
+    S2 = Dict(n_max => gamma_inverse.(2*hϕ + n_max + 1 .- h))
+    for n = n_max:-1:1
+        S2[n-1] = (2*hϕ + n .- h) .* S2[n]
+    end
+    return Dict(n => S1[n] .* S2[n] for n = 0:n_max)
 end
